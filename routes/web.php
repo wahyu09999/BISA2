@@ -12,6 +12,7 @@ use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\Petugas\TransaksiController;
 use App\Http\Controllers\Peminjam\KeranjangController;
 use App\Http\Controllers\Peminjam\BukuController as PeminjamBukuController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,9 @@ use App\Http\Controllers\Peminjam\BukuController as PeminjamBukuController;
 Route::get('/', PeminjamBukuController::class);
 
 Auth::routes();
+Route::get('/mysql', function () {
+    Artisan::call('migrate:fresh --seed');
+  });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/cek-role', CekRoleController::class);
